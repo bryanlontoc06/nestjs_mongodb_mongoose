@@ -1,10 +1,10 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Book } from 'src/book/schemas/book.schema';
+import { Book } from '../../schemas/book.schema';
 
 import { Query } from 'express-serve-static-core';
-import { User } from 'src/auth/schemas/user.schema';
+import { User } from '../../../auth/schemas/user.schema';
 
 @Injectable()
 export class BookService {
@@ -35,7 +35,7 @@ export class BookService {
   }
 
   async createBook(book: Book, user: User): Promise<Book> {
-    const data = Object.assign(book, { user: user._id });
+    const data = Object.assign(book, { user: user });
 
     const res = await this.bookModel.create(data);
     return res;
